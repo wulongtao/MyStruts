@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+
+<struts>
+
+	<constant name="struts.i18n.encoding" value="UTF-8"></constant>
+	<constant name="struts.enable.DynamicMethodInvocation" value="true" /> 
+
+    <!-- <package name="helloDemo" extends="struts-default" namespace="/">
+    	<action name="hello" class="com.xiaoxiaohei.action.HelloAction">
+    		<result name="ok">/hello.jsp</result>
+    	</action>
+    	<action name="test" class="com.xiaoxiaohei.action.HelloAction" method="test">
+    		<result name="test">/hello2.jsp</result>
+    	</action>
+    </package> -->
+    
+    <include file="com/xiaoxiaohei/action/hello.xml"></include>
+    
+    <!-- <package name="helloDemo" extends="struts-default">
+    	<action name="*" class="com.xiaoxiaohei.action.HelloAction" method="{1}">
+    		
+    	</action>
+    </package> -->
+    
+    <!-- <package name="demo2" extends="json-default" namespace="/"> -->
+    <package name="demo2" extends="struts-default" namespace="/">
+    
+    	<!-- 必须写在action前面 -->
+    	<interceptors>
+    		<interceptor name="loginInterceptor" class="com.xiaoxiaohei.interceptor.LoginInterceptor"></interceptor>
+    	</interceptors>
+    	
+    	<!-- 必须写action在前面 -->
+    	<global-allowed-methods>regex:.*</global-allowed-methods>
+    	
+    	<action name="form1" class="com.xiaoxiaohei.form.Form1DemoAction"></action>
+    	<action name="form2" class="com.xiaoxiaohei.form.Form2DemoAction"></action>
+    	<action name="data1" class="com.xiaoxiaohei.form.DataDemo1Action"></action>
+    	<action name="data2" class="com.xiaoxiaohei.form.DataDemo2Action"></action>
+    	<action name="data3" class="com.xiaoxiaohei.form.DataDemo3Action"></action>
+    	
+    	
+    	<action name="vs" class="com.xiaoxiaohei.ognl.UserAction">
+    		<result name="success">valueStack.jsp</result>
+    	</action>
+    	
+    	<action name="customer_*" class="com.xiaoxiaohei.interceptor.CustomerAction" method="{1}">
+    		<interceptor-ref name="loginInterceptor">
+    			<param name="excludeMethods">login</param>
+    		</interceptor-ref>
+    		<interceptor-ref name="defaultStack"></interceptor-ref>
+    		
+    		<result name="login" type="json">
+    			<param name="root">map</param>
+    		</result>
+    		<result name="failed">failed.jsp</result>
+    		<result name="success">success.jsp</result>
+    		
+    	</action>
+    </package>
+    
+    
+</struts>

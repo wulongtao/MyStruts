@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+
+<struts>
+    <!-- <package name="helloDemo" extends="struts-default" namespace="/">
+    	<action name="hello" class="com.xiaoxiaohei.action.HelloAction">
+    		<result name="ok">/hello.jsp</result>
+    	</action>
+    	<action name="test" class="com.xiaoxiaohei.action.HelloAction" method="test">
+    		<result name="test">/hello2.jsp</result>
+    	</action>
+    	<action name="none" class="com.xiaoxiaohei.action.HelloAction" method="noneTest">
+    	</action>
+    </package> -->
+    
+    <package name="helloDemo" extends="struts-default" namespace="">
+    	<action name="hello_*" class="com.xiaoxiaohei.action.HelloAction" method="{1}">
+    		<allowed-methods>test,noneTest</allowed-methods> 
+    	</action>
+    </package>
+    
+    <package name="demo1" extends="struts-default" namespace="/">
+    
+    	<global-results>
+    		<result name="success">/hello.jsp</result>
+    	</global-results>
+    	
+    	<action name="book" class="com.xiaoxiaohei.action.BookAction">
+    		<!-- <result name="success" type="dispatcher">/hello.jsp</result> -->
+    		<result name="success" type="redirectAction">orders</result>
+    	</action>
+    	<action name="orders" class="com.xiaoxiaohei.action.OrdersAction">
+    		<result name="success" type="redirect">/hello2.jsp</result>
+    	</action>
+    </package>
+</struts>
